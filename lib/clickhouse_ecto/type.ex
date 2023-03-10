@@ -68,6 +68,13 @@ defmodule ClickhouseEcto.Type do
     end
   end
 
+  def decode(value, :naive_datetime)
+      when is_binary(value) do
+    with {:ok, val} <- Ecto.Type.cast(:naive_datetime, value) do
+      Ecto.Type.dump(:naive_datetime, val)
+    end
+  end
+
   def decode(value, _type) do
     {:ok, value}
   end
